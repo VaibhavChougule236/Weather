@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClimaX.com</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+	<header class="header">
+		<a href="#" class="logo">ClimaX.com</a>
+		<div class="menu-toggle" onclick="toggleMenu()">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<nav class="navbar"></nav>
+
+	</header>
+
+	<div class="container">
+		<header class="wecome-box">
+			<h1>
+				Welcome to <span>ClimaX</span>
+			</h1>
+			<p>Your Ultimate Weather Companion</p>
+		</header>
+
+		<!-- Search Section -->
+		<form th:action="@{/getWeather}">
+			<div class="search-container">
+				<h1>Weather Forecast</h1>
+				<div class="search-box">
+					<input type="text" id="city" placeholder="Enter city name"
+						name="city">
+					<button type="submit" id="searchBtn">Search</button>
+				</div>
+			</div>
+		</form>
+
+		<!-- Weather Details Section -->
+		<div th:if="${weatherResponse != null}" class="weather-info">
+			<div class="weather-card">
+				<h2 id="cityName" th:text="${weatherResponse.location.name} + ' ( Country -' + ${weatherResponse.location.country} + ' )'">City
+					Name</h2>
+			</div>
+
+			<div class="weather-details">
+				<div class="detail-box">
+					<h3>Temperature</h3>
+					<p id="temperature"
+						th:text="${weatherResponse.current.temperature} + '°C'"></p>
+				</div>
+				<div class="detail-box">
+					<h3>Weather</h3>
+					<p id="description"
+						th:text="${weatherResponse.current.weather_descriptions}">--</p>
+				</div>
+				<div class="detail-box">
+					<h3>Humidity</h3>
+					<p id="humidity"
+						th:text="${weatherResponse.current.humidity} + ' %'">--%</p>
+				</div>
+				<div class="detail-box">
+					<h3>Wind Speed</h3>
+					<p id="wind"
+						th:text="${weatherResponse.current.wind_speed} + ' km/h'">--
+						km/h</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:if="${weatherResponse == null}">
+		<p style="color: red;">Weather data could not be retrieved. Please
+			try again later.</p>
+	</div>
+
+	<!-- Footer Section -->
+	<footer class="footer">
+		<div class="footer-container">
+			<div class="footer-content">
+				<h2>ClimaX</h2>
+				<p>Your Ultimate Weather Companion – Stay updated with real-time
+					weather forecasts.</p>
+			</div>
+
+			<div class="footer-links">
+				<a href="#">About</a> <a href="#">Contact</a> <a href="#">Privacy
+					Policy</a>
+			</div>
+
+			<div class="footer-social">
+				<a href="#"><img
+					src="https://cdn-icons-png.flaticon.com/512/2111/2111392.png"
+					alt="Facebook"></a> <a href="#"><img
+					src="https://cdn-icons-png.flaticon.com/512/733/733579.png"
+					alt="Twitter"></a> <a href="#"><img
+					src="https://cdn-icons-png.flaticon.com/512/174/174855.png"
+					alt="Instagram"></a>
+			</div>
+		</div>
+		<p class="footer-credit">&copy; 2025 ClimaX. All rights reserved.</p>
+	</footer>
+	<script src="/static/script.js" defer></script>
+</body>
+</html>
